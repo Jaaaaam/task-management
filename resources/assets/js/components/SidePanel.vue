@@ -7,7 +7,7 @@
         <div class="card-content">
           <div class="profile">
             <div class="profile-image">
-              <center><img class="round-image" src="http://via.placeholder.com/100x100"></center>
+              <center><img class="round-image" src="/images/prof-pic.jpg"></center>
             </div>
             <div class="profile-name">
               <center>Jamille Silvestre</center>

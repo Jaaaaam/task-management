@@ -8380,6 +8380,11 @@ nav a {
   color: #616161 !important;
 }
 
+.card .card-title {
+  font-weight: bold !important;
+  color: #1BB28F;
+}
+
 .round-image {
   height: 120px;
   width: 120px;
