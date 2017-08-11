@@ -46023,8 +46023,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -46086,7 +46084,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col s10"
     }, [_c('p', [_vm._v(_vm._s(todo.name))]), _vm._v(" "), _c('p', {
       staticClass: "date-added"
-    }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _vm._m(0, true)])])])
+    }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _c('ul', {
+      staticClass: "doer"
+    }, _vm._l((todo.users), function(user) {
+      return _c('li', [_c('img', {
+        staticClass: "round-image-small",
+        attrs: {
+          "src": user.image
+        }
+      })])
+    }))])])])
   }))])]), _vm._v(" "), _c('div', {
     staticClass: "col s4"
   }, [_c('div', {
@@ -46109,8 +46116,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col s10"
     }, [_c('p', [_vm._v(_vm._s(doingItem.name))]), _vm._v(" "), _c('p', {
       staticClass: "date-added"
-    }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _vm._m(1, true)])])])
-  }))])]), _c('div', {
+    }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _c('ul', {
+      staticClass: "doer"
+    }, _vm._l((doingItem.users), function(user) {
+      return _c('li', [_c('img', {
+        staticClass: "round-image-small",
+        attrs: {
+          "src": user.image
+        }
+      })])
+    }))])])])
+  }))])]), _vm._v(" "), _c('div', {
     staticClass: "col s4"
   }, [_c('div', {
     staticClass: "card gray-background"
@@ -46132,51 +46148,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col s10"
     }, [_c('p', [_vm._v(_vm._s(doneItem.name))]), _vm._v(" "), _c('p', {
       staticClass: "date-added"
-    }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _vm._m(2, true)])])])
+    }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _c('ul', {
+      staticClass: "doer"
+    }, _vm._l((doneItem.users), function(user) {
+      return _c('li', [_c('img', {
+        staticClass: "round-image-small",
+        attrs: {
+          "src": user.image
+        }
+      })])
+    }))])])])
   }))])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('ul', {
-    staticClass: "doer"
-  }, [_c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday1.jpg"
-    }
-  })]), _vm._v(" "), _c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday3.jpg"
-    }
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('ul', {
-    staticClass: "doer"
-  }, [_c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday1.jpg"
-    }
-  })]), _vm._v(" "), _c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday3.jpg"
-    }
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('ul', {
-    staticClass: "doer"
-  }, [_c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday1.jpg"
-    }
-  })]), _vm._v(" "), _c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday3.jpg"
-    }
-  })])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

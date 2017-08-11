@@ -16,8 +16,7 @@
                   <p>{{ todo.name }}</p>
                   <p class="date-added">Added 3 days ago</p>
                   <ul class="doer">
-                    <li><img class="round-image-small" src="images/bday1.jpg"></li>
-                    <li><img class="round-image-small" src="images/bday3.jpg"></li>
+                    <li v-for="user in todo.users"><img class="round-image-small" :src="user.image"></li>
                   </ul>
                 </div>
               </div>
@@ -40,15 +39,15 @@
                   <p>{{ doingItem.name }}</p>
                   <p class="date-added">Added 3 days ago</p>
                   <ul class="doer">
-                    <li><img class="round-image-small" src="images/bday1.jpg"></li>
-                    <li><img class="round-image-small" src="images/bday3.jpg"></li>
+                    <li v-for="user in doingItem.users"><img class="round-image-small" :src="user.image"></li>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div><div class="col s4">
+      </div>
+      <div class="col s4">
         <div class="card gray-background">
           <div class="card-header">
             Done
@@ -63,8 +62,7 @@
                   <p>{{ doneItem.name }}</p>
                   <p class="date-added">Added 3 days ago</p>
                   <ul class="doer">
-                    <li><img class="round-image-small" src="images/bday1.jpg"></li>
-                    <li><img class="round-image-small" src="images/bday3.jpg"></li>
+                    <li v-for="user in doneItem.users"><img class="round-image-small" :src="user.image"></li>
                   </ul>
                 </div>
               </div>
