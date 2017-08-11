@@ -18,3 +18,5 @@ Route::get('/', function () {
 Route::get('/timeline', function () {
     return view('home');
 });
+
+Route::get('/tasks', 'TaskController@index');

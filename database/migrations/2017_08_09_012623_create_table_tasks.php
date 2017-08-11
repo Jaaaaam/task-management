@@ -17,7 +17,8 @@ class CreateTableTasks extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
-            $table->string('priority');
+            $table->enum('priority', ['low', 'mid', 'high']);
+            $table->enum('status', ['todo', 'doing', 'done']);
             $table->timestamps();
         });
     }

@@ -1,6 +1,7 @@
 html, body, main-wrapper {
   background-color: #EAEAEA;
   height: 100%;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 nav {
@@ -58,19 +59,27 @@ nav {
   padding: 5px;
 }
 
+.high-prio {
+  color: #f44336;
+}
+.mid-prio {
+  color: #ff9800;
+}
+.low-prio {
+  color: #ffeb3b;
+}
+
+.round-image-small {
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  border: 1px solid #23D1A3;
+}
+
 p, ul, h5 {
   color: #616161 !important;
 }
 
 span.badge.new  {
   background-color: #1EB18F;
-}
-
-#main-panel > div > div.row > div:nth-child(1) > div > div.card-content > center > a {
-  box-shadow: none;
-  background-color: #E9FDCB;
-  color: #1EB18F;
-  border: 2px solid #23D1A3;
-  text-transform: none;
-  font-weight: bold;
 }

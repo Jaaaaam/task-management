@@ -6,8 +6,8 @@
         <upcoming-events></upcoming-events>
       </div>
       <div class="col s4">
-        <!-- <recent-tasks></recent-tasks>
-        <featured-employee></featured-employee> -->
+        <recent-tasks></recent-tasks>
+        <!-- <featured-employee></featured-employee> -->
       </div>
       <div class="col s4">
         <!-- <birthdays></birthdays> -->
