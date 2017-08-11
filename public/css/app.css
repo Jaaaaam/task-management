@@ -8385,6 +8385,15 @@ nav a {
   color: #1BB28F;
 }
 
+.card .card-header {
+  height: 50px;
+  background-color: #1EB18F;
+  padding: 10px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 .round-image {
   height: 120px;
   width: 120px;
@@ -8414,7 +8423,7 @@ span.badge.new {
   background-color: #1EB18F;
 }
 
-.custom-button {
+#main-panel > div > div.row > div:nth-child(1) > div > div.card-content > center > a {
   -webkit-box-shadow: none;
           box-shadow: none;
   background-color: #E9FDCB;

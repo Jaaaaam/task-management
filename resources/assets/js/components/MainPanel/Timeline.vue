@@ -3,7 +3,7 @@
     <welcome></welcome>
     <div class="row">
       <div class="col s4">
-        <!-- <upcoming-events></upcoming-events> -->
+        <upcoming-events></upcoming-events>
       </div>
       <div class="col s4">
         <!-- <recent-tasks></recent-tasks>

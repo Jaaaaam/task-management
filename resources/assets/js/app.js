@@ -23,6 +23,7 @@ import router from './routes'
 Vue.component('mainPanel', require('./components/MainPanel/MainPanel.vue'))
 Vue.component('sidePanel', require('./components/SidePanel.vue'))
 Vue.component('welcome', require('./components/MainPanel/Widgets/Welcome.vue'))
+Vue.component('upcoming-events', require('./components/MainPanel/Widgets/UpcomingEvents.vue'))
 
 
 const app = new Vue({
