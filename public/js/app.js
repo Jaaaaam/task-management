@@ -46025,92 +46025,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      tasks: {}
+      tasks: {},
+      todos: {},
+      doing: {},
+      done: {}
     };
   },
   created: function created() {
     var _this = this;
     axios.get('/tasks').then(function (response) {
       _this.tasks = response.data;
-      console.log(_this.tasks);
+      _this.todos = _this.tasks.filter(function (tasks) {
+        tasks.class = tasks.priority + '-prio';
+        return tasks.status == 'todo';
+      });
+      _this.doing = _this.tasks.filter(function (tasks) {
+        tasks.class = tasks.priority + '-prio';
+        return tasks.status == 'doing';
+      });
+      _this.done = _this.tasks.filter(function (tasks) {
+        tasks.class = tasks.priority + '-prio';
+        return tasks.status == 'done';
+      });
     });
   }
 });
@@ -46120,8 +46060,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "tasks"
   }, [_c('div', {
@@ -46134,74 +46072,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-header"
   }, [_vm._v("\n          To Do\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
-  }, [_c('div', {
-    staticClass: "task-item"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s2"
-  }, [_c('i', {
-    staticClass: "material-icons low-prio"
-  }, [_vm._v("lens")])]), _vm._v(" "), _c('div', {
-    staticClass: "col s10"
-  }, [_c('p', [_vm._v("Fix the responsiveness of Chat-Bot")]), _vm._v(" "), _c('p', {
-    staticClass: "date-added"
-  }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _c('ul', {
-    staticClass: "doer"
-  }, [_c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday1.jpg"
-    }
-  })]), _vm._v(" "), _c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday3.jpg"
-    }
-  })])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "task-item"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s2"
-  }, [_c('i', {
-    staticClass: "material-icons mid-prio"
-  }, [_vm._v("lens")])]), _vm._v(" "), _c('div', {
-    staticClass: "col s10"
-  }, [_c('p', [_vm._v("Add filters in the Schedule Table")]), _vm._v(" "), _c('p', {
-    staticClass: "date-added"
-  }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _c('ul', {
-    staticClass: "doer"
-  }, [_c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday1.jpg"
-    }
-  })])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "task-item"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s2"
-  }, [_c('i', {
-    staticClass: "material-icons low-prio"
-  }, [_vm._v("lens")])]), _vm._v(" "), _c('div', {
-    staticClass: "col s10"
-  }, [_c('p', [_vm._v("Make a documentation of the system")]), _vm._v(" "), _c('p', {
-    staticClass: "date-added"
-  }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _c('ul', {
-    staticClass: "doer"
-  }, [_c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday1.jpg"
-    }
-  })]), _vm._v(" "), _c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday3.jpg"
-    }
-  })])])])])])])])]), _vm._v(" "), _c('div', {
+  }, _vm._l((_vm.todos), function(todo) {
+    return _c('div', {
+      staticClass: "task-item"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col s2"
+    }, [_c('i', {
+      staticClass: "material-icons",
+      class: todo.class
+    }, [_vm._v("lens")])]), _vm._v(" "), _c('div', {
+      staticClass: "col s10"
+    }, [_c('p', [_vm._v(_vm._s(todo.name))]), _vm._v(" "), _c('p', {
+      staticClass: "date-added"
+    }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _vm._m(0, true)])])])
+  }))])]), _vm._v(" "), _c('div', {
     staticClass: "col s4"
   }, [_c('div', {
     staticClass: "card gray-background"
@@ -46209,60 +46095,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-header"
   }, [_vm._v("\n          Doing\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
-  }, [_c('div', {
-    staticClass: "task-item"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s2"
-  }, [_c('i', {
-    staticClass: "material-icons high-prio"
-  }, [_vm._v("lens")])]), _vm._v(" "), _c('div', {
-    staticClass: "col s10"
-  }, [_c('p', [_vm._v("Fix the appending of message in Timeline")]), _vm._v(" "), _c('p', {
-    staticClass: "date-added"
-  }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _c('ul', {
-    staticClass: "doer"
-  }, [_c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday1.jpg"
-    }
-  })]), _vm._v(" "), _c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday5.jpg"
-    }
-  })]), _vm._v(" "), _c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday4.jpg"
-    }
-  })])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "task-item"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s2"
-  }, [_c('i', {
-    staticClass: "material-icons high-prio"
-  }, [_vm._v("lens")])]), _vm._v(" "), _c('div', {
-    staticClass: "col s10"
-  }, [_c('p', [_vm._v("Fix the unaccurate firing of message")]), _vm._v(" "), _c('p', {
-    staticClass: "date-added"
-  }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _c('ul', {
-    staticClass: "doer"
-  }, [_c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday1.jpg"
-    }
-  })]), _vm._v(" "), _c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday6.jpg"
-    }
-  })])])])])])])])]), _vm._v(" "), _c('div', {
+  }, _vm._l((_vm.doing), function(doingItem) {
+    return _c('div', {
+      staticClass: "task-item"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col s2"
+    }, [_c('i', {
+      staticClass: "material-icons",
+      class: doingItem.class
+    }, [_vm._v("lens")])]), _vm._v(" "), _c('div', {
+      staticClass: "col s10"
+    }, [_c('p', [_vm._v(_vm._s(doingItem.name))]), _vm._v(" "), _c('p', {
+      staticClass: "date-added"
+    }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _vm._m(1, true)])])])
+  }))])]), _c('div', {
     staticClass: "col s4"
   }, [_c('div', {
     staticClass: "card gray-background"
@@ -46270,38 +46118,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-header"
   }, [_vm._v("\n          Done\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
-  }, [_c('div', {
-    staticClass: "task-item"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s2"
-  }, [_c('i', {
-    staticClass: "material-icons mid-prio"
-  }, [_vm._v("lens")])]), _vm._v(" "), _c('div', {
-    staticClass: "col s10"
-  }, [_c('p', [_vm._v("Add additional button on the main page")]), _vm._v(" "), _c('p', {
-    staticClass: "date-added"
-  }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _c('ul', {
-    staticClass: "doer"
-  }, [_c('li', [_c('img', {
-    staticClass: "round-image-small",
-    attrs: {
-      "src": "images/bday1.jpg"
-    }
-  })])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "task-item"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s2"
-  }, [_c('i', {
-    staticClass: "material-icons high-prio"
-  }, [_vm._v("lens")])]), _vm._v(" "), _c('div', {
-    staticClass: "col s10"
-  }, [_c('p', [_vm._v("Fix send feature")]), _vm._v(" "), _c('p', {
-    staticClass: "date-added"
-  }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _c('ul', {
+  }, _vm._l((_vm.done), function(doneItem) {
+    return _c('div', {
+      staticClass: "task-item"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col s2"
+    }, [_c('i', {
+      staticClass: "material-icons",
+      class: doneItem.class
+    }, [_vm._v("lens")])]), _vm._v(" "), _c('div', {
+      staticClass: "col s10"
+    }, [_c('p', [_vm._v(_vm._s(doneItem.name))]), _vm._v(" "), _c('p', {
+      staticClass: "date-added"
+    }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _vm._m(2, true)])])])
+  }))])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('ul', {
     staticClass: "doer"
   }, [_c('li', [_c('img', {
     staticClass: "round-image-small",
@@ -46311,28 +46145,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('li', [_c('img', {
     staticClass: "round-image-small",
     attrs: {
-      "src": "images/bday4.jpg"
+      "src": "images/bday3.jpg"
     }
-  })])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "task-item"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s2"
-  }, [_c('i', {
-    staticClass: "material-icons low-prio"
-  }, [_vm._v("lens")])]), _vm._v(" "), _c('div', {
-    staticClass: "col s10"
-  }, [_c('p', [_vm._v("Add borders to all users images")]), _vm._v(" "), _c('p', {
-    staticClass: "date-added"
-  }, [_vm._v("Added 3 days ago")]), _vm._v(" "), _c('ul', {
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('ul', {
     staticClass: "doer"
   }, [_c('li', [_c('img', {
     staticClass: "round-image-small",
     attrs: {
       "src": "images/bday1.jpg"
     }
-  })])])])])])])])])])])
+  })]), _vm._v(" "), _c('li', [_c('img', {
+    staticClass: "round-image-small",
+    attrs: {
+      "src": "images/bday3.jpg"
+    }
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('ul', {
+    staticClass: "doer"
+  }, [_c('li', [_c('img', {
+    staticClass: "round-image-small",
+    attrs: {
+      "src": "images/bday1.jpg"
+    }
+  })]), _vm._v(" "), _c('li', [_c('img', {
+    staticClass: "round-image-small",
+    attrs: {
+      "src": "images/bday3.jpg"
+    }
+  })])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

@@ -29,7 +29,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Task::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->text(100)  ,
         'description' => $faker->sentence(12, true),
         'priority' => $faker->randomElement(['low','mid','high']),
         'status' => $faker->randomElement(['todo','doing','done'])

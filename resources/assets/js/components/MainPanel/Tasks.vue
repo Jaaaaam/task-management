@@ -7,42 +7,13 @@
             To Do
           </div>
           <div class="card-content">
-            <div class="task-item">
+            <div v-for="todo in todos" class="task-item">
               <div class="row">
                 <div class="col s2">
-                  <i class="material-icons low-prio">lens</i>
+                  <i v-bind:class="todo.class" class="material-icons">lens</i>
                 </div>
                 <div class="col s10">
-                  <p>Fix the responsiveness of Chat-Bot</p>
-                  <p class="date-added">Added 3 days ago</p>
-                  <ul class="doer">
-                    <li><img class="round-image-small" src="images/bday1.jpg"></li>
-                    <li><img class="round-image-small" src="images/bday3.jpg"></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="task-item">
-              <div class="row">
-                <div class="col s2">
-                  <i class="material-icons mid-prio">lens</i>
-                </div>
-                <div class="col s10">
-                  <p>Add filters in the Schedule Table</p>
-                  <p class="date-added">Added 3 days ago</p>
-                  <ul class="doer">
-                    <li><img class="round-image-small" src="images/bday1.jpg"></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="task-item">
-              <div class="row">
-                <div class="col s2">
-                  <i class="material-icons low-prio">lens</i>
-                </div>
-                <div class="col s10">
-                  <p>Make a documentation of the system</p>
+                  <p>{{ todo.name }}</p>
                   <p class="date-added">Added 3 days ago</p>
                   <ul class="doer">
                     <li><img class="round-image-small" src="images/bday1.jpg"></li>
@@ -60,85 +31,40 @@
             Doing
           </div>
           <div class="card-content">
-            <div class="task-item">
+            <div v-for="doingItem in doing" class="task-item">
               <div class="row">
                 <div class="col s2">
-                  <i class="material-icons high-prio">lens</i>
+                  <i v-bind:class="doingItem.class" class="material-icons">lens</i>
                 </div>
                 <div class="col s10">
-                  <p>Fix the appending of message in Timeline</p>
+                  <p>{{ doingItem.name }}</p>
                   <p class="date-added">Added 3 days ago</p>
                   <ul class="doer">
                     <li><img class="round-image-small" src="images/bday1.jpg"></li>
-                    <li><img class="round-image-small" src="images/bday5.jpg"></li>
-                    <li><img class="round-image-small" src="images/bday4.jpg"></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="task-item">
-              <div class="row">
-                <div class="col s2">
-                  <i class="material-icons high-prio">lens</i>
-                </div>
-                <div class="col s10">
-                  <p>Fix the unaccurate firing of message</p>
-                  <p class="date-added">Added 3 days ago</p>
-                  <ul class="doer">
-                    <li><img class="round-image-small" src="images/bday1.jpg"></li>
-                    <li><img class="round-image-small" src="images/bday6.jpg"></li>
+                    <li><img class="round-image-small" src="images/bday3.jpg"></li>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col s4">
+      </div><div class="col s4">
         <div class="card gray-background">
           <div class="card-header">
             Done
           </div>
           <div class="card-content">
-            <div class="task-item">
+            <div v-for="doneItem in done" class="task-item">
               <div class="row">
                 <div class="col s2">
-                  <i class="material-icons mid-prio">lens</i>
+                  <i v-bind:class="doneItem.class" class="material-icons">lens</i>
                 </div>
                 <div class="col s10">
-                  <p>Add additional button on the main page</p>
+                  <p>{{ doneItem.name }}</p>
                   <p class="date-added">Added 3 days ago</p>
                   <ul class="doer">
                     <li><img class="round-image-small" src="images/bday1.jpg"></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="task-item">
-              <div class="row">
-                <div class="col s2">
-                  <i class="material-icons high-prio">lens</i>
-                </div>
-                <div class="col s10">
-                  <p>Fix send feature</p>
-                  <p class="date-added">Added 3 days ago</p>
-                  <ul class="doer">
-                    <li><img class="round-image-small" src="images/bday1.jpg"></li>
-                    <li><img class="round-image-small" src="images/bday4.jpg"></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="task-item">
-              <div class="row">
-                <div class="col s2">
-                  <i class="material-icons low-prio">lens</i>
-                </div>
-                <div class="col s10">
-                  <p>Add borders to all users images</p>
-                  <p class="date-added">Added 3 days ago</p>
-                  <ul class="doer">
-                    <li><img class="round-image-small" src="images/bday1.jpg"></li>
+                    <li><img class="round-image-small" src="images/bday3.jpg"></li>
                   </ul>
                 </div>
               </div>
@@ -154,16 +80,31 @@
 export default {
   data () {
     return {
-      tasks: {}
+      tasks: {},
+      todos: {},
+      doing: {},
+      done: {}
     }
   },
   created () {
     var _this = this;
     axios.get('/tasks').then((response) => {
       _this.tasks = response.data;
-      console.log(_this.tasks);
+      _this.todos =_this.tasks.filter(function (tasks) {
+        tasks.class = (tasks.priority+'-prio');
+        return tasks.status == 'todo'
+      });
+      _this.doing =_this.tasks.filter(function (tasks) {
+        tasks.class = (tasks.priority+'-prio');
+        return tasks.status == 'doing'
+      });
+      _this.done =_this.tasks.filter(function (tasks) {
+        tasks.class = (tasks.priority+'-prio');
+        return tasks.status == 'done'
+      });
     })
-  }
+  },
+
 }
 </script>
 
