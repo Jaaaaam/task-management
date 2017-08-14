@@ -20,3 +20,4 @@ Route::get('/timeline', function () {
 });
 
 Route::get('/tasks', 'TaskController@index');
+Route::put('/tasks/updateStatus', 'TaskController@updateStatus');

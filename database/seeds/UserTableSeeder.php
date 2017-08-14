@@ -14,7 +14,7 @@ class UserTableSeeder extends Seeder
         factory(App\User::class, 10)->create()->each(function ($user) {
           $user->tasks()->save(factory(App\Task::class)->make());
           $user->events()->save(factory(App\Event::class)->make());
-          // $tasks->users()->save(App/User::get());
+          // $tasks->users()->save($faker->randomElement($user));
         });
     }
 }

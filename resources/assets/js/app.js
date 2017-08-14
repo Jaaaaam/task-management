@@ -7,12 +7,13 @@
 import './bootstrap'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Popover from 'vue-js-popover'
 
 window.Vue = Vue;
 Vue.use(VueRouter);
+Vue.use(Popover);
 
 import router from './routes'
-// import App from './components/App'
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

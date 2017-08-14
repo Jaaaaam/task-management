@@ -11,4 +11,11 @@ class TaskController extends Controller
 
       return $tasks;
     }
+
+    public function updateStatus(Request $request) {
+     $task = \App\Task::find($request->id);
+
+     $task->status = $request->status;
+     $task->save();
+   }
 }
