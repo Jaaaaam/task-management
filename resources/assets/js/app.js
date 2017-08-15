@@ -8,10 +8,12 @@ import './bootstrap'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Popover from 'vue-js-popover'
+import VModal from 'vue-js-modal'
 
 window.Vue = Vue;
 Vue.use(VueRouter);
 Vue.use(Popover);
+Vue.use(VModal);
 
 import router from './routes'
 

@@ -5,7 +5,7 @@
         <div class="card gray-background">
           <div class="card-header">
             To Do
-            <span class="pull-right"><i class="material-icons">add_circle_outline</i></span>
+            <span @click="showAddTaskModal()" class="pull-right"><i class="material-icons">add_circle_outline</i></span>
           </div>
           <div class="card-content">
             <div v-for="todo in todos" class="task-item">
@@ -14,7 +14,7 @@
                   <i v-bind:class="todo.class" class="material-icons">lens</i>
                 </div>
                 <div class="col s10">
-                  <p>{{ todo.name }}</p>
+                  <p @click="showTaskModal(todo)">{{ todo.name }}</p>
                   <p class="date-added">Created last {{ todo.created_at }}</p>
                   <hr>
                   <i class="material-icons" v-popover:swap-todo>swap_horiz</i>
@@ -43,7 +43,7 @@
                   <i v-bind:class="doingItem.class" class="material-icons">lens</i>
                 </div>
                 <div class="col s10">
-                  <p>{{ doingItem.name }}</p>
+                  <p @click="showTaskModal(doingItem)">{{ doingItem.name }}</p>
                   <p class="date-added">Created last {{ doingItem.created_at }}</p>
                   <hr>
                   <i class="material-icons" v-popover:swap-doing>swap_horiz</i>
@@ -72,7 +72,7 @@
                   <i v-bind:class="doneItem.class" class="material-icons">lens</i>
                 </div>
                 <div class="col s10">
-                  <p>{{ doneItem.name }}</p>
+                  <p @click="showTaskModal(doneItem)">{{ doneItem.name }}</p>
                   <p class="date-added">Created last {{ doneItem.created_at }}</p>
                   <hr>
                   <i class="material-icons" v-popover:swap-done>swap_horiz</i>
@@ -90,6 +90,59 @@
         </div>
       </div>
     </div>
+    <modal name="task">
+      Show Task
+      {{ task }}
+    </modal>
+    <modal name="add-task" height="600">
+      <div class="modal-container">
+        <h4>Add Task</h4>
+        <div class="input-field">
+           <select>
+             <option value="" selected>Choose your option</option>
+             <option value="1">Option 1</option>
+             <option value="2">Option 2</option>
+             <option value="3">Option 3</option>
+           </select>
+           <label>Materialize Select</label>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="name" type="text" class="validate">
+            <label for="name">Task Name</label>
+          </div>
+          <div class="input-field col s12">
+            <textarea id="description" type="text" class="materialize-textarea"></textarea>
+            <label for="description">Task Description</label>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="status" type="text" class="validate">
+              <label for="status">Status</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="priority" type="text" class="validate">
+              <label for="priority">Priority</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <input type="date" id="start_date" class="">
+            <!-- <label for="start_date">Start Date</label> -->
+          </div>
+          <div class="field col s6">
+            <input type="date" id="end_date" class="">
+            <!-- <label for="end_date">End Date</label> -->
+          </div>
+          <div class="input-field col s12">
+            <input id="assigned_to" type="text" class="validate">
+            <label for="assigned_to">AssignedTo</label>
+          </div>
+        </div>
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -97,14 +150,24 @@
 export default {
   data () {
     return {
-      tasks: {},
-      todos: {},
-      doing: {},
-      done: {}
+      tasks: [],
+      todos: [],
+      doing: [],
+      done: [],
+      task: {}
     }
   },
+  mounted() {
+
+  },
   created () {
-    console.log(this);
+    $(document).ready(function() {
+      $('.modal').modal();
+      console.log($('select'));
+      console.log('SHEEET', $('select').material_select);
+      $('select').material_select();
+
+    });
     var _this = this;
     axios.get('/tasks').then((response) => {
       _this.tasks = response.data;
@@ -180,6 +243,14 @@ export default {
           return array.splice(i, 1);
         }
       }
+    },
+    showTaskModal: function (task) {
+      console.log(task);
+      this.task = task;
+      this.$modal.show('task');
+    },
+    showAddTaskModal: function (task) {
+      this.$modal.show('add-task');
     }
   }
 }
@@ -206,6 +277,10 @@ export default {
         float: right;
       }
     }
+  }
+
+  .modal-container {
+    padding: 20px;
   }
   .card {
     .card-header {
