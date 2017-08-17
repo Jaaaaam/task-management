@@ -18,5 +18,6 @@ export default new VueRouter({
             name: 'Tasks',
             component: Tasks
         }
-    ]
+    ],
+    mode: 'history'
 })

@@ -8,7 +8,7 @@
             <span @click="showAddTaskModal()" class="pull-right"><i class="material-icons">add_circle_outline</i></span>
           </div>
           <div class="card-content">
-            <div v-for="todo in todos" class="task-item">
+            <div v-for="(todo, key) in todos" class="task-item">
               <div class="row">
                 <div class="col s2">
                   <i v-bind:class="todo.class" class="material-icons">lens</i>
@@ -17,10 +17,19 @@
                   <p @click="showTaskModal(todo)">{{ todo.name }}</p>
                   <p class="date-added">Created last {{ todo.created_at }}</p>
                   <hr>
+
+
+                  <!-- <a @click="test()" class='dropdown-button2' href="#" :data-activates="key"><i class="material-icons" >swap_horiz</i></a>
+
+                  <ul :id="key" class='dropdown-content'>
+                    <li @click="transferFromTodo({'id': todo.id, 'status': 'doing'})"><a >Move to Doing</a></li>
+                    <li @click="transferFromTodo({'id': todo.id, 'status': 'done'})"><a >Move to Done</a></li>
+                  </ul> -->
+
                   <i class="material-icons" v-popover:swap-todo>swap_horiz</i>
                     <popover name="swap-todo">
-                      <div @click="transferFromTodo(todo.id, 'doing')" class="popover-item">Move to Doing</div>
-                      <div @click="transferFromTodo(todo.id, 'done')" class="popover-item no-border">Move to Done</div>
+                      <div @click="transferFromTodo({'id': todo.id, 'status': 'doing'})" class="popover-item">Move to Doing</div>
+                      <div @click="transferFromTodo({'id': todo.id, 'status': 'done'})" class="popover-item no-border">Move to Done</div>
                     </popover>
                   <ul class="doer">
                     <li v-for="user in todo.users"><img class="round-image-small" :src="user.image"></li>
@@ -37,7 +46,7 @@
             Doing
           </div>
           <div class="card-content">
-            <div v-for="doingItem in doing" class="task-item">
+            <div v-for="(doingItem, key) in doing" class="task-item">
               <div class="row">
                 <div class="col s2">
                   <i v-bind:class="doingItem.class" class="material-icons">lens</i>
@@ -46,10 +55,18 @@
                   <p @click="showTaskModal(doingItem)">{{ doingItem.name }}</p>
                   <p class="date-added">Created last {{ doingItem.created_at }}</p>
                   <hr>
+
+                  <!-- <a class='dropdown-button2' href="#" :data-activates="key"><i class="material-icons" >swap_horiz</i></a>
+
+                  <ul :id="key" class='dropdown-content'>
+                    <li @click="transferFromTodo({'id': doingItem.id, 'status': 'doing'})"><a >Move to Doing</a></li>
+                    <li @click="transferFromTodo({'id': doingItem.id, 'status': 'done'})"><a >Move to Done</a></li>
+                  </ul> -->
+
                   <i class="material-icons" v-popover:swap-doing>swap_horiz</i>
                     <popover name="swap-doing">
-                      <div @click="transferFromDoing(doingItem.id, 'todo')" class="popover-item">Move to Todo</div>
-                      <div @click="transferFromDoing(doingItem.id, 'done')" class="popover-item no-border">Move to Done</div>
+                      <div @click="transferFromDoing({'id': doingItem.id, 'status': 'todo'})" class="popover-item">Move to Todo</div>
+                      <div @click="transferFromDoing({'id': doingItem.id, 'status': 'done'})" class="popover-item no-border">Move to Done</div>
                     </popover>
                   <ul class="doer">
                     <li v-for="user in doingItem.users"><img class="round-image-small" :src="user.image"></li>
@@ -77,8 +94,8 @@
                   <hr>
                   <i class="material-icons" v-popover:swap-done>swap_horiz</i>
                     <popover name="swap-done">
-                      <div @click="transferFromDone(doneItem.id, 'todo')" class="popover-item">Move to Todo</div>
-                      <div @click="transferFromDone(doneItem.id, 'doing')" class="popover-item no-border">Move to Doing</div>
+                      <div @click="transferFromDone({'id': doneItem.id, 'status': 'todo'})" class="popover-item">Move to Todo</div>
+                      <div @click="transferFromDone({'id': doneItem.id, 'status': 'doing'})" class="popover-item no-border">Move to Doing</div>
                     </popover>
                   <ul class="doer">
                     <li v-for="user in doneItem.users"><img class="round-image-small" :src="user.image"></li>
@@ -90,23 +107,10 @@
         </div>
       </div>
     </div>
-    <modal name="task">
-      Show Task
-      {{ task }}
-    </modal>
-    <modal name="add-task" height="600">
-      <div class="modal-container">
-        <h4>Add Task</h4>
-        <div class="input-field">
-           <select>
-             <option value="" selected>Choose your option</option>
-             <option value="1">Option 1</option>
-             <option value="2">Option 2</option>
-             <option value="3">Option 3</option>
-           </select>
-           <label>Materialize Select</label>
-        </div>
-        <hr>
+
+    <modal :show="isTaskModalShown" @close="isTaskModalShown=false">
+      <h4 slot="header">Add Task</h4>
+      <div slot="body">
         <div class="row">
           <div class="input-field col s12">
             <input id="name" type="text" class="validate">
@@ -118,139 +122,106 @@
           </div>
           <div class="row">
             <div class="input-field col s6">
-              <input id="status" type="text" class="validate">
-              <label for="status">Status</label>
+              <select>
+                <option value="" selected>Choose your option</option>
+                <option value="1">Todo</option>
+                <option value="2">Doing</option>
+                <option value="3">Done</option>
+              </select>
+              <label>Status</label>
             </div>
             <div class="input-field col s6">
-              <input id="priority" type="text" class="validate">
-              <label for="priority">Priority</label>
+              <select>
+                <option value="" selected>Choose your option</option>
+                <option value="1">Low</option>
+                <option value="2">Mid</option>
+                <option value="3">High</option>
+              </select>
+              <label>Priority</label>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col s6">
-            <input type="date" id="start_date" class="">
-            <!-- <label for="start_date">Start Date</label> -->
+            <input type="text" class="datepicker">
           </div>
           <div class="field col s6">
-            <input type="date" id="end_date" class="">
-            <!-- <label for="end_date">End Date</label> -->
+            <input type="text" class="datepicker">
           </div>
           <div class="input-field col s12">
             <input id="assigned_to" type="text" class="validate">
             <label for="assigned_to">AssignedTo</label>
           </div>
         </div>
+        <button type="submit" name="button" class="waves-effect waves-light btn custom-button">Submit</button>
       </div>
     </modal>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   data () {
     return {
-      tasks: [],
-      todos: [],
-      doing: [],
-      done: [],
-      task: {}
+      isTaskModalShown: false,
     }
   },
-  mounted() {
+  mounted () {
+      this.$store.dispatch('loadTasks');
+      console.log(this.$store.getters.todo);
 
   },
-  created () {
-    $(document).ready(function() {
-      $('.modal').modal();
-      console.log($('select'));
-      console.log('SHEEET', $('select').material_select);
-      $('select').material_select();
-
-    });
-    var _this = this;
-    axios.get('/tasks').then((response) => {
-      _this.tasks = response.data;
-      _this.todos =_this.tasks.filter(function (tasks) {
-        tasks.class = (tasks.priority+'-prio');
-        return tasks.status == 'todo'
-      });
-      _this.doing =_this.tasks.filter(function (tasks) {
-        tasks.class = (tasks.priority+'-prio');
-        return tasks.status == 'doing'
-      });
-      _this.done =_this.tasks.filter(function (tasks) {
-        tasks.class = (tasks.priority+'-prio');
-        return tasks.status == 'done'
-      });
-    })
-  },
+  computed: mapGetters({
+    tasks: 'tasks',
+    todos: 'todo',
+    doing: 'doing',
+    done: 'done'
+  }),
   methods: {
-    transferFromTodo: function (id, status) {
-      var _this = this;
-
-      if (status == 'doing') {
-        var newItem = this.removeFromArray(_this.todos , id);
-        axios.put('/tasks/updateStatus', {id, status}).then(function(res) {
-          console.log(res);
-          _this.doing.push(newItem[0]);
-        });
-      } else if (status == 'done') {
-        var newItem = this.removeFromArray(_this.todos , id);
-        axios.put('/tasks/updateStatus', {id, status}).then(function(res) {
-          console.log(res);
-          _this.done.push(newItem[0]);
-        });
-      }
+    test : function () {
+      console.log('todos', this.todos);
+      console.log('doing', this.doing);
     },
-    transferFromDoing: function (id, status) {
-      var _this = this;
-
-      if (status == 'todo') {
-        var newItem = this.removeFromArray(_this.doing , id);
-        axios.put('/tasks/updateStatus', {id, status}).then(function(res) {
-          console.log(res);
-          _this.todos.push(newItem[0]);
-        });
-      } else if (status == 'done') {
-        var newItem = this.removeFromArray(_this.doing , id);
-        axios.put('/tasks/updateStatus', {id, status}).then(function(res) {
-          console.log(res);
-          _this.done.push(newItem[0]);
-        });
-      }
+    transferFromTodo: function (task) {
+      this.$store.dispatch('transferFromTodo', task);
     },
-    transferFromDone: function (id, status) {
-      var _this = this;
-
-      if (status == 'todo') {
-        var newItem = this.removeFromArray(_this.done , id);
-        axios.put('/tasks/updateStatus', {id, status}).then(function(res) {
-          console.log(res);
-          _this.todos.push(newItem[0]);
-        });
-      } else if (status == 'doing') {
-        var newItem = this.removeFromArray(_this.done , id);
-        axios.put('/tasks/updateStatus', {id, status}).then(function(res) {
-          console.log(res);
-          _this.doing.push(newItem[0]);
-        });
-      }
+    transferFromDoing: function (task) {
+      this.$store.dispatch('transferFromDoing', task);
     },
-    removeFromArray: function(array, id) {
-      for (var i = 0; i < array.length; i++) {
-        if (array[i].id == id) {
-          return array.splice(i, 1);
-        }
-      }
+    transferFromDone: function (task) {
+      this.$store.dispatch('transferFromDone', task);
     },
-    showTaskModal: function (task) {
-      console.log(task);
-      this.task = task;
-      this.$modal.show('task');
+    showAddTaskModal: function () {
+      $(document).ready(function() {
+        $('select').material_select();
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Today',
+            clear: 'Clear',
+            close: 'Ok',
+            closeOnSelect: false // Close upon selecting a date,
+          });
+      });
+      this.isTaskModalShown = true;
     },
-    showAddTaskModal: function (task) {
-      this.$modal.show('add-task');
+    initDropdown: function () {
+      $(document).ready(function() {
+        console.log('dropdown');
+        $('.dropdown-button').dropdown({
+            inDuration: 300,
+            outDuration: 225,
+            constrainWidth: false, // Does not change width of dropdown to that of the activator
+            hover: false, // Activate on hover
+            gutter: 0, // Spacing from edge
+            belowOrigin: false, // Displays dropdown below the button
+            alignment: 'left', // Displays dropdown with edge aligned to the left of button
+            stopPropagation: false // Stops event propagation
+          }
+        );
+      });
     }
   }
 }

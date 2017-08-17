@@ -7,13 +7,12 @@
 import './bootstrap'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store/store'
 import Popover from 'vue-js-popover'
-import VModal from 'vue-js-modal'
 
 window.Vue = Vue;
 Vue.use(VueRouter);
 Vue.use(Popover);
-Vue.use(VModal);
 
 import router from './routes'
 
@@ -25,6 +24,7 @@ import router from './routes'
 
 Vue.component('mainPanel', require('./components/MainPanel/MainPanel.vue'))
 Vue.component('sidePanel', require('./components/SidePanel.vue'))
+Vue.component('modal', require('./components/MainPanel/Modal.vue'))
 Vue.component('welcome', require('./components/MainPanel/Widgets/Welcome.vue'))
 Vue.component('upcoming-events', require('./components/MainPanel/Widgets/UpcomingEvents.vue'))
 Vue.component('recent-tasks', require('./components/MainPanel/Widgets/RecentTasks.vue'))
@@ -32,7 +32,6 @@ Vue.component('recent-tasks', require('./components/MainPanel/Widgets/RecentTask
 
 const app = new Vue({
     el: '#app',
-    router
-    // template: '<App/>',
-    // components: { App }
+    router,
+    store
 });

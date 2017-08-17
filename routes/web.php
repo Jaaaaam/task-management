@@ -19,5 +19,11 @@ Route::get('/timeline', function () {
     return view('home');
 });
 
-Route::get('/tasks', 'TaskController@index');
+Route::get('/tasks', function () {
+    return view('home');
+});
+
+Route::get('/getTasks', 'TaskController@getTasks');
 Route::put('/tasks/updateStatus', 'TaskController@updateStatus');
+
+Route::get('/users', 'UserController@index');

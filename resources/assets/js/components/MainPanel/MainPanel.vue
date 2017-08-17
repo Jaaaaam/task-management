@@ -10,12 +10,26 @@
         </ul>
       </div>
     </nav>
+
+
+
+
+
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
+  mounted () {
+    $(function(){
+      console.log('dropdown');
+      $('.dropdown-button').dropdown();
+      $('.dropdown-button2').dropdown();
+      console.log($('.dropdown-button2'));
+      console.log($('.dropdown-button'));
+    });
+  },
 }
 </script>
 

@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     public function index() {
+      // $tasks = \App\Task::with('users')->get();
+      //
+      // return $tasks;
+    }
+
+    public function getTasks() {
       $tasks = \App\Task::with('users')->get();
 
       return $tasks;
